@@ -1,6 +1,5 @@
 async function fetchProducts() {
   try {
-    // Skeleton ၄ ကွက်စာ အတန်းလိုက် ပေါ်နေစေရန်
     productGrid.innerHTML = `
       <div class="animate-pulse flex flex-col justify-between bg-gray-100 rounded p-4 h-56 w-full">
         <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
@@ -43,7 +42,7 @@ async function fetchProducts() {
     }
 
     const data = await response.json();
-    products = data.products.map(item => ({
+    const products = data.products.map(item => ({
       id: item.id,
       name: item.title,
       price: item.price,
@@ -51,7 +50,7 @@ async function fetchProducts() {
       image: item.thumbnail
     }));
 
-    addProduct(); 
+    addProduct(products); 
   } catch (error) {
     console.error('Error fetching products:', error);
     productGrid.innerHTML = `
@@ -68,7 +67,7 @@ async function fetchProducts() {
 
 const productGrid = document.getElementById('productGrid');
 let currentTotal = 0;
-function addProduct() {
+function addProduct(products) {
     productGrid.innerHTML = ''; 
     
     products.forEach(product => {
